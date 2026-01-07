@@ -1,0 +1,32 @@
+[
+  {
+    "id": "bid_7c93a7f0",
+    "request_id": "req_206e43aaa99f",
+    "bidder": {
+      "address": "local-node",
+      "model": "devstral-small-2:24b",
+      "reputation": 0.85
+    },
+    "bid": {
+      "price_ant": 0.2,
+      "estimated_time_s": 5,
+      "submitted": "2026-01-07T20:59:27.861034"
+    },
+    "status": "won"
+  },
+  {
+    "id": "bid_61903401",
+    "request_id": "req_bf062317da9b",
+    "bidder": {
+      "address": "mijo-4090",
+      "model": "devstral-small-2:24b",
+      "reputation": 0.85
+    },
+    "bid": {
+      "price_ant": 0.4,
+      "estimated_time_s": 5,
+      "submitted": "2026-01-07T21:08:29.725260"
+    },
+    "status": "won"
+  }
+]

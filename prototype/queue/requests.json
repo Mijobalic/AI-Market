@@ -1,0 +1,44 @@
+[
+  {
+    "id": "req_206e43aaa99f",
+    "type": "inference_request",
+    "status": "completed",
+    "created": "2026-01-07T20:58:56.807417",
+    "expires": "2026-01-07T21:58:56.807433",
+    "request": {
+      "prompt": "What is the capital of France?",
+      "model_hint": "any",
+      "max_tokens": 500
+    },
+    "economics": {
+      "max_price_ant": 0.3,
+      "payment_mode": "auction"
+    },
+    "requester": {
+      "address": "anonymous",
+      "reputation": 0.9
+    },
+    "assigned_to": "bid_7c93a7f0"
+  },
+  {
+    "id": "req_bf062317da9b",
+    "type": "inference_request",
+    "status": "assigned",
+    "created": "2026-01-07T21:08:16.612573",
+    "expires": "2026-01-07T22:08:16.612591",
+    "request": {
+      "prompt": "Explain quantum computing in simple terms",
+      "model_hint": "any",
+      "max_tokens": 500
+    },
+    "economics": {
+      "max_price_ant": 0.5,
+      "payment_mode": "auction"
+    },
+    "requester": {
+      "address": "anonymous",
+      "reputation": 0.9
+    },
+    "assigned_to": "bid_61903401"
+  }
+]
