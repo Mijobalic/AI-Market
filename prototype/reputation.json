@@ -1,11 +1,11 @@
 {
-  "total_jobs": 3,
-  "total_earned": 0.037000000000000005,
-  "average_quality": 0.273,
+  "total_jobs": 4,
+  "total_earned": 0.05160000000000001,
+  "average_quality": 0.2957,
   "jobs_by_category": {
     "technical": 1,
     "code": 1,
-    "creative": 1
+    "creative": 2
   },
   "history": [
     {
@@ -25,6 +25,12 @@
       "category": "creative",
       "price": 0.0102,
       "quality": 0.3
+    },
+    {
+      "timestamp": "2026-01-08T18:48:57.354693",
+      "category": "creative",
+      "price": 0.0146,
+      "quality": 0.5
     }
   ]
 }
