@@ -3,6 +3,7 @@ Autonomi Escrow System
 
 Tracks payment escrows on the Autonomi network.
 All escrow state transitions are recorded as immutable data.
+Now with optional real ANT transfers via wallet_transfer.py.
 """
 
 import json
@@ -12,6 +13,13 @@ from enum import Enum
 from pathlib import Path
 
 from autonomi_client import AutonomiClient
+
+# Optional wallet integration
+try:
+    from wallet_transfer import ANTWallet
+    HAS_WALLET = True
+except ImportError:
+    HAS_WALLET = False
 
 
 class EscrowState(str, Enum):
@@ -147,13 +155,42 @@ class AutonomiEscrow:
         
         return address
     
-    def approve_payment(self, escrow_address: str, quality_score: float) -> str:
+    def approve_payment(self, escrow_address: str, quality_score: float,
+                         bidder_address: str = None, 
+                         real_transfer: bool = False) -> str:
         """Approve the result and release payment.
+        
+        Args:
+            escrow_address: The escrow to approve
+            quality_score: Quality assessment (0-1)
+            bidder_address: Bidder's wallet address (for real transfer)
+            real_transfer: If True, actually send ANT (careful!)
         
         Returns address of the state update.
         """
         cache = self._load_cache()
         escrow_info = cache.get("escrows", {}).get(escrow_address, {})
+        amount = escrow_info.get("agreed_price", 0)
+        
+        transfer_result = "simulated"
+        tx_hash = None
+        
+        # Real transfer if requested
+        if real_transfer and bidder_address and HAS_WALLET:
+            print(f"💰 Initiating real ANT transfer...")
+            try:
+                wallet = ANTWallet()
+                tx_hash = wallet.transfer_ant(bidder_address, amount, dry_run=False)
+                if tx_hash and tx_hash != "dry_run_tx_hash":
+                    transfer_result = "completed"
+                    print(f"  TX: {tx_hash}")
+                else:
+                    transfer_result = "failed"
+            except Exception as e:
+                print(f"  Transfer error: {e}")
+                transfer_result = "error"
+        elif real_transfer and not HAS_WALLET:
+            print("⚠ Wallet not available - simulating transfer")
         
         update = {
             "type": "ai_market_escrow_update",
@@ -161,16 +198,20 @@ class AutonomiEscrow:
             "escrow_address": escrow_address,
             "new_state": EscrowState.APPROVED.value,
             "quality_score": quality_score,
-            "payment_released": escrow_info.get("agreed_price", 0),
+            "payment_released": amount,
+            "transfer_result": transfer_result,
+            "tx_hash": tx_hash,
             "timestamp": datetime.now().isoformat(),
-            "note": "Payment released to bidder"
+            "note": f"Payment {'transferred' if transfer_result == 'completed' else 'approved (simulated)'}"
         }
         
         address = self.client.backend.upload_data(update)
         
         if address:
             print(f"✓ Payment approved!")
-            print(f"  {escrow_info.get('agreed_price', 0)} ANT → {escrow_info.get('bidder', 'bidder')}")
+            print(f"  {amount} ANT → {escrow_info.get('bidder', 'bidder')}")
+            if transfer_result == "completed":
+                print(f"  ✓ Real transfer completed!")
             
             cache["escrows"][escrow_address]["state"] = EscrowState.APPROVED.value
             self._save_cache(cache)

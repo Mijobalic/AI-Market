@@ -7,6 +7,14 @@
       "bidder": "mellanrum-free-ai",
       "agreed_price": 0.05,
       "result_address": "demo_result_789"
+    },
+    "a49a99fea94c7468ae2a957abacee1465aeb622b0f78891b2c7ab66cd38f9ad5": {
+      "request_address": "demo_request_123",
+      "amount_ant": 0.1,
+      "state": "approved",
+      "bidder": "mellanrum-free-ai",
+      "agreed_price": 0.05,
+      "result_address": "demo_result_789"
     }
   }
 }
