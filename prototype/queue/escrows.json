@@ -118,5 +118,53 @@
       }
     ],
     "updated_at": "2026-01-08T13:09:04.591073"
+  },
+  {
+    "request_id": "dispute_test",
+    "requester": "dispute_requester",
+    "bidder": "bad_bidder",
+    "amount_locked": 0.5,
+    "amount_paid": 0.2,
+    "state": "refunded",
+    "created_at": "2026-01-08T13:17:06.113655",
+    "assigned_at": "2026-01-08T13:17:22.550755",
+    "submitted_at": "2026-01-08T13:17:22.573678",
+    "resolved_at": "2026-01-08T13:17:32.115611",
+    "result_hash": "bad_result_hash",
+    "dispute_reason": "Response quality too low, doesn't answer the question",
+    "validator": "validator_001",
+    "history": [
+      {
+        "action": "created",
+        "time": "2026-01-08T13:17:06.113676",
+        "amount": 0.5
+      },
+      {
+        "action": "assigned",
+        "time": "2026-01-08T13:17:22.550775",
+        "bidder": "bad_bidder",
+        "price": 0.2
+      },
+      {
+        "action": "submitted",
+        "time": "2026-01-08T13:17:22.573688",
+        "result_hash": "bad_result_hash"
+      },
+      {
+        "action": "disputed",
+        "time": "2026-01-08T13:17:22.596156",
+        "reason": "Response quality too low, doesn't answer the question",
+        "validator": "validator_001"
+      },
+      {
+        "action": "resolved",
+        "time": "2026-01-08T13:17:32.115629",
+        "decision": "invalid",
+        "payment_to_bidder": 0,
+        "refund_to_requester": 0.5,
+        "penalty": "Bidder reputation slashed"
+      }
+    ],
+    "updated_at": "2026-01-08T13:17:32.115667"
   }
 ]
