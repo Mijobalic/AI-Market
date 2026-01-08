@@ -1,0 +1,12 @@
+{
+  "escrows": {
+    "9bb8bf3628815d9d031df43772d909ea72f897838e9bd471a2efc0d964f46136": {
+      "request_address": "demo_request_123",
+      "amount_ant": 0.1,
+      "state": "approved",
+      "bidder": "mellanrum-free-ai",
+      "agreed_price": 0.05,
+      "result_address": "demo_result_789"
+    }
+  }
+}
