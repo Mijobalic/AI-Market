@@ -296,11 +296,34 @@ def record_job(category: str, price: float, quality: float):
 # INFERENCE ENGINE
 # ═══════════════════════════════════════════════════════════════════
 
+# Try to import online API config
+try:
+    # Add parent directory to path to find config_online
+    sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+    from config_online import call_online_model
+    HAS_API = True
+except ImportError:
+    HAS_API = False
+
 def run_inference(prompt: str, model_key: str = None, max_tokens: int = 500) -> str:
-    """Run inference using specified model via Ollama."""
+    """Run inference using Mistral API or fallback to Ollama."""
     model_key = model_key or CONFIG["primary_model"]
-    model = MODELS.get(model_key, MODELS["devstral"])
     
+    # Try API first (Devstral via Mistral API)
+    if HAS_API:
+        try:
+            # Use devstral provider for code tasks, mistral for general
+            provider = "devstral" if model_key == "devstral" else "mistral"
+            response = call_online_model(prompt, provider=provider, max_tokens=max_tokens)
+            
+            # Check for error response
+            if response and "Error" not in response:
+                return response.strip()
+        except Exception as e:
+            print(f"   ⚠️ API error: {e}")
+    
+    # Fallback to Ollama
+    model = MODELS.get(model_key, MODELS["devstral"])
     try:
         result = subprocess.run(
             ["ollama", "run", model["name"].split(":")[0], prompt],
@@ -310,14 +333,13 @@ def run_inference(prompt: str, model_key: str = None, max_tokens: int = 500) -> 
         )
         if result.returncode == 0:
             return result.stdout.strip()
-        else:
-            return f"[Simulated response to: {prompt[:50]}...]"
-    except FileNotFoundError:
-        return f"[Simulated response to: {prompt[:50]}...]"
-    except subprocess.TimeoutExpired:
-        return "[Error: Inference timeout]"
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        pass
     except Exception as e:
-        return f"[Error: {str(e)}]"
+        print(f"   ⚠️ Ollama error: {e}")
+    
+    # Final fallback: simulate
+    return f"[Simulated response to: {prompt[:50]}...]"
 
 # ═══════════════════════════════════════════════════════════════════
 # BIDDING LOGIC
