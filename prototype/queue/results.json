@@ -7,5 +7,23 @@
     "submitted": "2026-01-07T20:59:41.026789",
     "validated": null,
     "paid": false
+  },
+  {
+    "id": "res_96196513",
+    "request_id": "req_9eb6ac2720af",
+    "bid_id": "bid_e285b8a5",
+    "response": "[Simulated response to: Write a Python function that calculates the Fibona...]",
+    "submitted": "2026-01-08T08:15:01.026358",
+    "validated": null,
+    "paid": false
+  },
+  {
+    "id": "res_1da746fd",
+    "request_id": "req_2e12df2936cc",
+    "bid_id": "bid_087d46bd",
+    "response": "[Simulated response to: Explain how hash tables work and their time comple...]",
+    "submitted": "2026-01-08T08:15:54.153270",
+    "validated": null,
+    "paid": false
   }
 ]

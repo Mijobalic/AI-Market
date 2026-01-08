@@ -1,0 +1,16 @@
+{
+  "total_jobs": 1,
+  "total_earned": 0.0123,
+  "average_quality": 0.2,
+  "jobs_by_category": {
+    "technical": 1
+  },
+  "history": [
+    {
+      "timestamp": "2026-01-08T08:15:54.155855",
+      "category": "technical",
+      "price": 0.0123,
+      "quality": 0.2
+    }
+  ]
+}

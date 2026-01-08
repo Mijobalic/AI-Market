@@ -374,7 +374,7 @@ def process_winning_bid(request: dict, bid: dict):
     print(f"   ✓ Result submitted")
     
     # Record for reputation
-    record_job(analysis["category"], bid["price_ant"], quality)
+    record_job(analysis["category"], bid["bid"]["price_ant"], quality)
     print(f"   ✓ Reputation updated")
 
 # ═══════════════════════════════════════════════════════════════════

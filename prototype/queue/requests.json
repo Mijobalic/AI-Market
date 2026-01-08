@@ -40,5 +40,47 @@
       "reputation": 0.9
     },
     "assigned_to": "bid_61903401"
+  },
+  {
+    "id": "req_9eb6ac2720af",
+    "type": "inference_request",
+    "status": "completed",
+    "created": "2026-01-08T08:14:30.900262",
+    "expires": "2026-01-08T09:14:30.900277",
+    "request": {
+      "prompt": "Write a Python function that calculates the Fibonacci sequence using memoization for efficiency",
+      "model_hint": "any",
+      "max_tokens": 500
+    },
+    "economics": {
+      "max_price_ant": 0.5,
+      "payment_mode": "auction"
+    },
+    "requester": {
+      "address": "anonymous",
+      "reputation": 0.9
+    },
+    "assigned_to": "bid_e285b8a5"
+  },
+  {
+    "id": "req_2e12df2936cc",
+    "type": "inference_request",
+    "status": "completed",
+    "created": "2026-01-08T08:15:46.138283",
+    "expires": "2026-01-08T09:15:46.138300",
+    "request": {
+      "prompt": "Explain how hash tables work and their time complexity",
+      "model_hint": "any",
+      "max_tokens": 500
+    },
+    "economics": {
+      "max_price_ant": 0.3,
+      "payment_mode": "auction"
+    },
+    "requester": {
+      "address": "anonymous",
+      "reputation": 0.9
+    },
+    "assigned_to": "bid_087d46bd"
   }
 ]
