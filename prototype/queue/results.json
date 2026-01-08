@@ -25,5 +25,14 @@
     "submitted": "2026-01-08T08:15:54.153270",
     "validated": null,
     "paid": false
+  },
+  {
+    "id": "res_74a0da27",
+    "request_id": "req_fe20e7546a72",
+    "bid_id": "bid_7ef2c9c1",
+    "response": "# Quicksort Implementation in Python with Detailed Comments\n\n```python\ndef quicksort(arr):\n    \"\"\"\n    Sorts an array in ascending order using the quicksort algorithm.\n\n    Quicksort is a divide-and-conquer algorithm that works by:\n    1. Selecting a 'pivot' element from the array\n    2. Partitioning the array into two subarrays:\n       - Elements less than the pivot\n       - Elements greater than the pivot\n    3. Recursively applying the same process to the subarrays\n    4. Combining the results\n\n    Args:\n        arr (list): The list to be sorted\n\n    Returns:\n        list: The sorted list\n    \"\"\"\n\n    # Base case: arrays with 0 or 1 element are already sorted\n    if len(arr) <= 1:\n        return arr\n\n    # Choose the pivot (here we use the last element)\n    pivot = arr[-1]\n\n    # Partition the array into elements less than and greater than the pivot\n    left = [x for x in arr[:-1] if x <= pivot]  # All elements <= pivot (except pivot itself)\n    right = [x for x in arr[:-1] if x > pivot]   # All elements > pivot\n\n    # Recursively sort the left and right partitions\n    # Then combine them with the pivot in the middle\n    return quicksort(left) + [pivot] + quicksort(right)\n\n# Example usage\nif __name__ == \"__main__\":\n    unsorted_list = [3, 6, 8, 10, 1, 2, 1]\n    print(\"Original list:\", unsorted_list)\n    sorted_list = quicksort(unsorted_list)\n    print(\"Sorted list:\", sorted_list)\n```\n\n## Detailed Explanation:\n\n1. **Base Case Handling**:\n   - The function first checks if the array has 0 or 1 elements. If so, it returns the array immediately since it's already sorted.\n\n2. **Pivot Selection**:\n   - The pivot is chosen as the last element of the array (`arr[-1]`). Other common strategies include:\n     - First element\n     - Random element\n     - Median of three (first, middle, last elements)\n\n3. **Partitioning**:\n   - The array is split into two subarrays using list comprehensions:\n     - `left`: Contains all elements from",
+    "submitted": "2026-01-08T08:34:41.093621",
+    "validated": null,
+    "paid": false
   }
 ]

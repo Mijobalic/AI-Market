@@ -82,5 +82,26 @@
       "reputation": 0.9
     },
     "assigned_to": "bid_087d46bd"
+  },
+  {
+    "id": "req_fe20e7546a72",
+    "type": "inference_request",
+    "status": "completed",
+    "created": "2026-01-08T08:33:54.160002",
+    "expires": "2026-01-08T09:33:54.160023",
+    "request": {
+      "prompt": "Write a Python function that implements quicksort with detailed comments explaining each step",
+      "model_hint": "any",
+      "max_tokens": 500
+    },
+    "economics": {
+      "max_price_ant": 0.3,
+      "payment_mode": "auction"
+    },
+    "requester": {
+      "address": "anonymous",
+      "reputation": 0.9
+    },
+    "assigned_to": "bid_7ef2c9c1"
   }
 ]
