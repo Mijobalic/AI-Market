@@ -73,5 +73,20 @@
       "submitted": "2026-01-08T08:34:07.362070"
     },
     "status": "won"
+  },
+  {
+    "id": "bid_1662df06",
+    "request_id": "req_caa51d5453c3",
+    "bidder": {
+      "address": "mellanrum-free-ai",
+      "model": "devstral-small-2:24b",
+      "reputation": 0.85
+    },
+    "bid": {
+      "price_ant": 0.0102,
+      "estimated_time_s": 5,
+      "submitted": "2026-01-08T13:09:03.870226"
+    },
+    "status": "won"
   }
 ]

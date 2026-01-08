@@ -78,5 +78,45 @@
       }
     ],
     "updated_at": "2026-01-08T08:34:53.321649"
+  },
+  {
+    "request_id": "req_caa51d5453c3",
+    "requester": "demo_alice",
+    "bidder": "mellanrum-free-ai",
+    "amount_locked": 0.1,
+    "amount_paid": 0.015,
+    "state": "approved",
+    "created_at": "2026-01-08T13:09:03.645317",
+    "assigned_at": "2026-01-08T13:09:03.924506",
+    "submitted_at": "2026-01-08T13:09:04.568061",
+    "resolved_at": "2026-01-08T13:09:04.591036",
+    "result_hash": "result_hash_demo",
+    "dispute_reason": null,
+    "validator": null,
+    "history": [
+      {
+        "action": "created",
+        "time": "2026-01-08T13:09:03.645322",
+        "amount": 0.1
+      },
+      {
+        "action": "assigned",
+        "time": "2026-01-08T13:09:03.924512",
+        "bidder": "mellanrum-free-ai",
+        "price": 0.015
+      },
+      {
+        "action": "submitted",
+        "time": "2026-01-08T13:09:04.568066",
+        "result_hash": "result_hash_demo"
+      },
+      {
+        "action": "approved",
+        "time": "2026-01-08T13:09:04.591041",
+        "payment_to_bidder": 0.015,
+        "refund_to_requester": 0.085
+      }
+    ],
+    "updated_at": "2026-01-08T13:09:04.591073"
   }
 ]

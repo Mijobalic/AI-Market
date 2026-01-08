@@ -103,5 +103,26 @@
       "reputation": 0.9
     },
     "assigned_to": "bid_7ef2c9c1"
+  },
+  {
+    "id": "req_caa51d5453c3",
+    "type": "inference_request",
+    "status": "completed",
+    "created": "2026-01-08T13:09:03.622537",
+    "expires": "2026-01-08T14:09:03.622551",
+    "request": {
+      "prompt": "Write a haiku about autonomous AI",
+      "model_hint": "any",
+      "max_tokens": 500
+    },
+    "economics": {
+      "max_price_ant": 0.1,
+      "payment_mode": "auction"
+    },
+    "requester": {
+      "address": "anonymous",
+      "reputation": 0.9
+    },
+    "assigned_to": "bid_1662df06"
   }
 ]

@@ -1,4 +1,5 @@
 {
   "requester_alice": 10.0,
-  "demo_requester": 5.0
+  "demo_requester": 5.0,
+  "demo_alice": 10.0
 }
