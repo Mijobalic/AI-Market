@@ -1,0 +1,42 @@
+[
+  {
+    "request_id": "test_req_001",
+    "requester": "requester_alice",
+    "bidder": "mellanrum-free-ai",
+    "amount_locked": 0.5,
+    "amount_paid": 0.15,
+    "state": "approved",
+    "created_at": "2026-01-08T08:32:33.930903",
+    "assigned_at": "2026-01-08T08:32:33.953190",
+    "submitted_at": "2026-01-08T08:32:33.975284",
+    "resolved_at": "2026-01-08T08:32:33.997097",
+    "result_hash": "hash_abc123",
+    "dispute_reason": null,
+    "validator": null,
+    "history": [
+      {
+        "action": "created",
+        "time": "2026-01-08T08:32:33.930921",
+        "amount": 0.5
+      },
+      {
+        "action": "assigned",
+        "time": "2026-01-08T08:32:33.953196",
+        "bidder": "mellanrum-free-ai",
+        "price": 0.15
+      },
+      {
+        "action": "submitted",
+        "time": "2026-01-08T08:32:33.975290",
+        "result_hash": "hash_abc123"
+      },
+      {
+        "action": "approved",
+        "time": "2026-01-08T08:32:33.997103",
+        "payment_to_bidder": 0.15,
+        "refund_to_requester": 0.35
+      }
+    ],
+    "updated_at": "2026-01-08T08:32:33.997133"
+  }
+]
