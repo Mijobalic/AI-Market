@@ -81,77 +81,97 @@ class LocalBackend:
 # ═══════════════════════════════════════════════════════════════════
 
 class AntTPBackend:
-    """HTTP gateway backend for real Autonomi network."""
+    """HTTP gateway backend for real Autonomi network.
+    
+    Uses the /anttp-0/binary/public_data endpoint which was tested and confirmed working
+    on January 8, 2026.
+    """
     
     def __init__(self, base_url: str):
-        self.base_url = base_url
+        self.base_url = base_url.rstrip('/')
     
-    def read_scratchpad(self, address: str) -> dict:
-        """Read scratchpad via AntTP REST API."""
+    def upload_data(self, data: dict, cache_only: bool = False) -> Optional[str]:
+        """Upload JSON data to Autonomi, return address.
+        
+        Args:
+            data: JSON-serializable data to upload
+            cache_only: If True, only cache locally (free). If False, upload to network (costs ANT).
+        """
         try:
-            resp = requests.get(f"{self.base_url}/scratchpad/{address}")
+            cache_header = "memory" if cache_only else "none"
+            resp = requests.post(
+                f"{self.base_url}/anttp-0/binary/public_data",
+                headers={
+                    "Content-Type": "application/json",
+                    "x-cache-only": cache_header
+                },
+                json=data,
+                timeout=60
+            )
+            if resp.status_code in (200, 201):
+                result = resp.json()
+                return result.get("address")
+        except requests.RequestException as e:
+            print(f"AntTP upload error: {e}")
+        return None
+    
+    def get_data(self, address: str) -> dict:
+        """Retrieve data from Autonomi by address."""
+        try:
+            resp = requests.get(
+                f"{self.base_url}/anttp-0/binary/public_data/{address}",
+                timeout=30
+            )
             if resp.status_code == 200:
                 return resp.json()
         except requests.RequestException as e:
-            print(f"AntTP error: {e}")
+            print(f"AntTP get error: {e}")
         return {}
     
-    def write_scratchpad(self, address: str, data: dict):
-        """Write scratchpad via AntTP REST API."""
-        try:
-            resp = requests.put(
-                f"{self.base_url}/scratchpad/{address}",
-                json=data
-            )
-            return resp.status_code == 200
-        except requests.RequestException as e:
-            print(f"AntTP error: {e}")
-            return False
+    # Compatibility methods for existing code
+    def read_scratchpad(self, address: str) -> dict:
+        """Read data (compatibility alias)."""
+        return self.get_data(address)
+    
+    def write_scratchpad(self, address: str, data: dict) -> bool:
+        """Upload data (compatibility - note: address is ignored, content-addressed)."""
+        result = self.upload_data(data)
+        return result is not None
+    
+    def upload_archive(self, filename: str, data: dict) -> Optional[str]:
+        """Upload archive (compatibility alias)."""
+        return self.upload_data(data)
+    
+    def get_archive(self, address: str) -> dict:
+        """Get archive (compatibility alias)."""
+        return self.get_data(address)
     
     def get_pointer(self, address: str) -> Optional[str]:
-        """Get pointer target via AntTP REST API."""
+        """Get pointer - uses /anttp-0/pointer endpoint."""
         try:
-            resp = requests.get(f"{self.base_url}/pointer/{address}")
+            resp = requests.get(
+                f"{self.base_url}/anttp-0/pointer/{address}",
+                timeout=30
+            )
             if resp.status_code == 200:
                 return resp.json().get("target")
         except requests.RequestException as e:
-            print(f"AntTP error: {e}")
+            print(f"AntTP pointer error: {e}")
         return None
     
-    def set_pointer(self, address: str, target: str):
-        """Update pointer via AntTP REST API."""
+    def set_pointer(self, address: str, target: str) -> bool:
+        """Set pointer - uses /anttp-0/pointer endpoint."""
         try:
             resp = requests.put(
-                f"{self.base_url}/pointer/{address}",
-                json={"target": target}
+                f"{self.base_url}/anttp-0/pointer/{address}",
+                headers={"x-cache-only": "none"},
+                json={"target": target},
+                timeout=30
             )
-            return resp.status_code == 200
+            return resp.status_code in (200, 201)
         except requests.RequestException as e:
-            print(f"AntTP error: {e}")
+            print(f"AntTP pointer error: {e}")
             return False
-    
-    def upload_archive(self, filename: str, data: dict) -> Optional[str]:
-        """Upload archive via AntTP, return address."""
-        try:
-            resp = requests.post(
-                f"{self.base_url}/archive",
-                json=data
-            )
-            if resp.status_code == 200:
-                return resp.json().get("address")
-        except requests.RequestException as e:
-            print(f"AntTP error: {e}")
-        return None
-    
-    def get_archive(self, address: str) -> dict:
-        """Retrieve archive via AntTP."""
-        try:
-            resp = requests.get(f"{self.base_url}/{address}")
-            if resp.status_code == 200:
-                return resp.json()
-        except requests.RequestException as e:
-            print(f"AntTP error: {e}")
-        return {}
 
 # ═══════════════════════════════════════════════════════════════════
 # UNIFIED CLIENT
