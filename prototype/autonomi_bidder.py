@@ -15,7 +15,6 @@ from pathlib import Path
 from request_feed import RequestFeed
 from smart_bidder import (
     analyze_prompt,
-    calculate_smart_price,
     calculate_capability_match,
     run_inference,
     estimate_quality,
@@ -96,9 +95,13 @@ class AutonomiBidder:
             print(f"  Address: {address}")
         return address
     
-    def execute_job(self, request_address: str, bid_address: str) -> dict:
+    def execute_job(self, request_address: str, bid_address: str) -> Optional[dict]:
         """Execute the inference job and return result."""
         request = self.feed.get_request(request_address)
+        if not request:
+            print(f"Error: Could not retrieve request {request_address}")
+            return None
+        
         prompt = request.get("prompt", "")
         max_tokens = request.get("max_tokens", 500)
         
@@ -151,6 +154,11 @@ class AutonomiBidder:
                 if bid_address:
                     # For demo: immediately execute (normally would wait for selection)
                     result = self.execute_job(req["address"], bid_address)
+                    
+                    if not result:
+                        print("  ⚠ Job execution failed")
+                        continue
+                    
                     result_address = self.submit_result(result)
                     
                     if result_address:

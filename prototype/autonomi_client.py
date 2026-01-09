@@ -10,10 +10,12 @@ When AntTP is available and network is live, switch to 'anttp' backend.
 """
 
 import json
+import time
 import requests
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
+from functools import wraps
 
 # ═══════════════════════════════════════════════════════════════════
 # CONFIGURATION
@@ -24,6 +26,26 @@ CONFIG = {
     "anttp_url": "http://localhost:18888",
     "local_dir": Path(__file__).parent / "queue"
 }
+
+
+def retry(max_attempts: int = 3, backoff: float = 1.0):
+    """Retry decorator with exponential backoff for network resilience."""
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            for attempt in range(max_attempts):
+                try:
+                    return func(*args, **kwargs)
+                except requests.RequestException as e:
+                    if attempt == max_attempts - 1:
+                        print(f"Request failed after {max_attempts} attempts: {e}")
+                        raise
+                    wait_time = backoff * (2 ** attempt)
+                    print(f"Request failed, retrying in {wait_time:.1f}s... ({e})")
+                    time.sleep(wait_time)
+            return None
+        return wrapper
+    return decorator
 
 # ═══════════════════════════════════════════════════════════════════
 # LOCAL BACKEND (uses queue_simulator files)
