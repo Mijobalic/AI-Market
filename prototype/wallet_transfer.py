@@ -164,8 +164,13 @@ def main():
     
     cmd = sys.argv[1]
     
-    # Set private key for testing
-    private_key = "32211813766864646f99ddcfc9f6f5cca9b448a289c27cc6e840419d1dcefaf0"
+    # SECURITY: Use environment variable only - never hardcode keys!
+    private_key = os.getenv("ANT_PRIVATE_KEY")
+    if not private_key:
+        print("Error: ANT_PRIVATE_KEY environment variable not set")
+        print("Set it in your .env file or export it:")
+        print("  export ANT_PRIVATE_KEY=your_private_key")
+        return
     
     try:
         wallet = ANTWallet(private_key)
